@@ -1,13 +1,14 @@
-package kr.co.wikibook.gallery.cart.model;
+package kr.co.wikibook.gallery.order.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public class CartGetRes {
+@Setter
+public class OrderDetailDto {
     private int id;
-    private int itemId;
-    private int price;
     private String name;
     private String imgPath;
+    private int price;
     private int discountPer;
 }

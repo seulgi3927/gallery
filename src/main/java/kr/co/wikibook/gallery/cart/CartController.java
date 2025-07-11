@@ -36,25 +36,21 @@ public class CartController {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping // 리퀘스트 파람 받았으면 세터를 사용하지 않아도 된다. (객체생성을 하면 되니까)
-    public ResponseEntity<?> remove(@RequestParam int itemId, HttpServletRequest httpReq){
+    @DeleteMapping("/{cartId}") // 리퀘스트 파람 받았으면 세터를 사용하지 않아도 된다. (객체생성을 하면 되니까)
+    public ResponseEntity<?> deleteMemberItem(@PathVariable int cartId, HttpServletRequest httpReq){
         int logginedMemberId = (int) HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
 
-        CartDeleteReq req = new CartDeleteReq();
-        req.setItemId(itemId);
-        req.setMemberId(logginedMemberId);
+        CartDeleteReq req = new CartDeleteReq(cartId, logginedMemberId);
 
-        int result = cartService.remove(req);
+        int result = cartService.removeItem(req);
         return ResponseEntity.ok(result);
-
     }
-      // 아래처럼도 가능,
-//    @DeleteMapping
-//    public ResponseEntity<?> delete(@ModelAttribute CartGetRes req, HttpServletRequest httpReq){
-//        int logginedMemberId = (int) HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
-//        req.setMemberId(logginedMemberId);
-//        int result = cartService.remove(req);
-//        return ResponseEntity.ok(result);
-//    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteMemberCart(HttpServletRequest httpReq){
+        int logginedMemberId = (int) HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
+        int result = cartService.removeCart(logginedMemberId);
+        return ResponseEntity.ok(result);
+    }
 
 }

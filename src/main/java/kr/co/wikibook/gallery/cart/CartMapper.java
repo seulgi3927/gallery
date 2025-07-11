@@ -11,7 +11,7 @@ import java.util.List;
 public interface CartMapper {
     int save(CartPostReq req);
     List<CartGetRes> findAllWithItemByMemberId(int memberId);
-
-    int removeByMemberIdAndItemId(CartDeleteReq req);
+    int deleteByCartIdAndMemberId(CartDeleteReq req);
+    int deleteByMemberId(int memberId);
 
 }

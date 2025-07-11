@@ -25,9 +25,11 @@ public class CartService {
         return cartMapper.findAllWithItemByMemberId(memberId);
     }
 
-    public int remove(CartDeleteReq req) {
-        return cartMapper.removeByMemberIdAndItemId(req);
+    public int removeItem(CartDeleteReq req) {
+        return cartMapper.deleteByCartIdAndMemberId(req);
     }
 
-
+    public int removeCart(int memberId) {
+        return cartMapper.deleteByMemberId(memberId);
+    }
 }
